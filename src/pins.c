@@ -22,6 +22,7 @@ void initPins(void) {
     ANSELE = 0;
     ANSELG = 0;
     TRISB = 0;
+    TRISBbits.TRISB7 = 1;
     TRISC = 0;
     TRISD = 0;
     TRISE = 0;
