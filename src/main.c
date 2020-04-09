@@ -19,12 +19,12 @@ int main(void) {
     
     SYS_Initialize(NULL);
     initPins();
-    LED1Off();
-    LED2On();
+    LED1On();
+    LED2Off();
     while (true) {
         LED1Toggle();
         LED2Toggle();
-        delay_ms(1000);
+        delay_ms(500);
     };
     return ( EXIT_FAILURE);
 }

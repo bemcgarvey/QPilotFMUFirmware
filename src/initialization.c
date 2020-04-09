@@ -21,9 +21,9 @@
 #pragma config DBGPER =     PG_ALL
 #pragma config SMCLR =      MCLR_NORM
 #pragma config SOSCGAIN =   GAIN_LEVEL_3
-#pragma config SOSCBOOST =  ON
-#pragma config POSCGAIN =   GAIN_LEVEL_3
-#pragma config POSCBOOST =  ON
+#pragma config SOSCBOOST =  OFF
+#pragma config POSCGAIN =   GAIN_LEVEL_0
+#pragma config POSCBOOST =  OFF
 #pragma config EJTAGBEN =   NORMAL
 #pragma config CP =         OFF
 
@@ -31,8 +31,8 @@
 #pragma config FNOSC =      SPLL
 #pragma config DMTINTV =    WIN_127_128
 #pragma config FSOSCEN =    OFF
-#pragma config IESO =       OFF
-#pragma config POSCMOD =    OFF
+#pragma config IESO =       ON
+#pragma config POSCMOD =    EC
 #pragma config OSCIOFNC =   OFF
 #pragma config FCKSM =      CSECME
 #pragma config WDTPS =      PS1048576
