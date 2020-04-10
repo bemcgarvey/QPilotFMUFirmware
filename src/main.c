@@ -13,17 +13,20 @@
 #include "led.h"
 #include "pins.h"
 #include "debug.h"
+#include "spi.h"
 
 int main(void) {
-
     SYS_Initialize(NULL);
     initPins();
     setPPS();
     initDebug();
+    initMCUtoFMUchannel();
     LED1Off();
     LED2Off();
+    __builtin_set_isr_state(0);
+    __builtin_enable_interrupts();
     while (true) {
-        LED1Toggle();
+        //LED1Toggle();
         char c = _mon_getc(false);
         if (c != EOF) {
             printf("%c\r\n", c);

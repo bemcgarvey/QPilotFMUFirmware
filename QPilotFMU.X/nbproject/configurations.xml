@@ -9,6 +9,7 @@
       <itemPath>../src/version.h</itemPath>
       <itemPath>../src/delays.h</itemPath>
       <itemPath>../src/debug.h</itemPath>
+      <itemPath>../src/spi.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -23,6 +24,7 @@
       <itemPath>../src/delays.c</itemPath>
       <itemPath>../src/initialization.c</itemPath>
       <itemPath>../src/debug.c</itemPath>
+      <itemPath>../src/spi.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

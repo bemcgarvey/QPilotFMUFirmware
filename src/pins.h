@@ -20,8 +20,8 @@
 //RB9 = SDO3
 //RB14 = SCK3
 //
-//RC13 = SDO1
-//RC14 = SDI1
+//RB10 = SDI1  - should be RB14
+//RC14 = SDO1  - should be RB13
 //
 //RD0 = SDO4
 //RD1 = SCK1

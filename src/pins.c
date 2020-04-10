@@ -22,8 +22,7 @@ void initPins(void) {
     ANSELE = 0;
     ANSELG = 0;
     TRISB = 0;
-    TRISBbits.TRISB7 = 1;
-    TRISC = 0;
+    TRISC = 0;  
     TRISD = 0;
     TRISE = 0;
     TRISF = 0;
@@ -38,7 +37,7 @@ void setPPS(void) {
     CFGCONbits.IOLOCK = 0;
     /* PPS Input Remapping */
     U2RXR = 0b0111;
-    SDI1R = 0b0111;
+    SDI1R = 0b0110;
     INT2R = 0b0000;
     SDI4R = 0b0011;
     INT4R = 0b0110;
@@ -47,7 +46,7 @@ void setPPS(void) {
     /* PPS Output Remapping */
     RPB6R = 0b0010;
     RPB9R = 0b0111;
-    RPC13R = 0b0101;
+    RPC14R = 0b0101;
     RPD0R = 0b1000;
 
             /* Lock back the system after PPS configuration */

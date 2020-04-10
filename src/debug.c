@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////
 // Project: QPilot MCU                             //
 // File: debug.c                                   //
-// Target: PIC32MKxxxxGPD/E064                     // 
+// Target: PIC32MZxxxxEFG064                       // 
 // Compiler: XC32                                  //
 // Author: Brad McGarvey                           //
 // License: GNU General Public License v3.0        //
@@ -12,6 +12,7 @@
 #include "debug.h"
 
 void initDebug(void) {
+    TRISBbits.TRISB7 = 1;
     U2BRG = 53; //115200 baud
     U2MODEbits.BRGH = 0;
     U2STAbits.URXEN = 1;

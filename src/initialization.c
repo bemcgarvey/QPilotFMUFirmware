@@ -65,7 +65,6 @@
 #pragma config TSEQ =       0xffff
 #pragma config CSEQ =       0x0
 
-
 void SYS_Initialize(void* data) {
     __builtin_disable_interrupts();
     SYSKEY = 0x00000000;
@@ -94,4 +93,11 @@ void SYS_Initialize(void* data) {
     PRECONbits.PFMWS = 2;
     CFGCONbits.ECCCON = 3;
     INTCONbits.MVEC = 1;
+    PRISSbits.PRI1SS = 1;
+    PRISSbits.PRI2SS = 2;
+    PRISSbits.PRI3SS = 3;
+    PRISSbits.PRI4SS = 4;
+    PRISSbits.PRI5SS = 5;
+    PRISSbits.PRI6SS = 6;
+    PRISSbits.PRI7SS = 7;
 }
