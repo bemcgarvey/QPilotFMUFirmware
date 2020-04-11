@@ -14,21 +14,33 @@
 #include "pins.h"
 #include "debug.h"
 #include "spi.h"
+#include "extmem.h"
+#include "delays.h"
+
+uint8_t mem[256];
+uint8_t memr[256];
 
 int main(void) {
     SYS_Initialize(NULL);
     initPins();
     setPPS();
     initDebug();
-    initFMUtoMCUch2();
-    LED1Off();
-    LED2Off();
+    initFlash();
+    
+    for (int i = 0; i < 256; ++i) {
+        mem[i] = i;
+        memr[i] = 0xff;
+    }
+    //flashErase4Kblock(0);
+    //delay_ms(100);
+    //flashPageProgram(0, mem, 256);
+    flashRead(0, memr, 32);
+    LED2On();
+    
     __builtin_set_isr_state(0);
-    __builtin_enable_interrupts();
+    //__builtin_enable_interrupts();
     char count = 0;
     while (true) {
-        char c = 0;
-        transferFMUtoMCUch2(&count, 1);
         LED1Toggle();
         ++count;
         delay_ms(500);
@@ -37,7 +49,6 @@ int main(void) {
 }
 
 void _nmi_handler(void) {
-
 
     //Clear BEV flag
     _CP0_BIC_STATUS(_CP0_STATUS_BEV_MASK);

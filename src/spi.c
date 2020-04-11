@@ -11,6 +11,7 @@
 #include "device.h"
 #include "spi.h"
 #include "led.h"
+#include "delays.h"
 
 void initMCUtoFMU(void) {
     TRISBbits.TRISB10 = 1;  //TODO - remove this when when board is correct.
