@@ -20,21 +20,30 @@ int main(void) {
     initPins();
     setPPS();
     initDebug();
-    initMCUtoFMUchannel();
+    initMCUtoFMU();
+    initFMUtoMCUch1();
     LED1Off();
     LED2Off();
     __builtin_set_isr_state(0);
     __builtin_enable_interrupts();
+    char count = 0;
     while (true) {
-        //LED1Toggle();
-        char c = _mon_getc(false);
-        if (c != EOF) {
-            printf("%c\r\n", c);
-        }
-        if (c == '1') {
+//        //LED1Toggle();
+//        char c = _mon_getc(false);
+//        if (c != EOF) {
+//            printf("%c\r\n", c);
+//        }
+//        if (c == '1') {
+//            LED2Toggle();
+//        }
+        char c = 0;
+        transferFMUtoMCUch1(&count, 1, &c, 1);
+        LED1Toggle();
+        if (c == 71) {
             LED2Toggle();
         }
-        delay_ms(500);
+        ++count;
+        delay_ms(1000);
     };
     return ( EXIT_FAILURE);
 }

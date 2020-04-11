@@ -15,8 +15,9 @@
 extern "C" {
 #endif
 
-    void initMCUtoFMUchannel(void);
-
+    void initMCUtoFMU(void);
+    void initFMUtoMCUch1(void);
+    bool transferFMUtoMCUch1(uint8_t *txBuff, int txBytes, uint8_t *rxBuff, int rxBytes);
 
 
 #ifdef	__cplusplus

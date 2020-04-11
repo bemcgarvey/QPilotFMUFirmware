@@ -12,9 +12,10 @@
 #include "spi.h"
 #include "led.h"
 
-void initMCUtoFMUchannel(void) {
+void initMCUtoFMU(void) {
     TRISBbits.TRISB10 = 1;  //TODO - remove this when when board is correct.
     TRISCbits.TRISC13 = 1;
+    TRISDbits.TRISD1 = 1;
     SPI1CON = 0;
     char c = SPI1BUF;
     SPI1CONbits.ENHBUF = 0;
@@ -32,6 +33,45 @@ void initMCUtoFMUchannel(void) {
     SPI1BUF = 0;  //Initial data
 }
 
+void initFMUtoMCUch1(void) {
+    //SPI3
+    TRISDbits.TRISD11 = 1;
+    SPI4CON = 0;
+    char c = SPI3BUF;
+    SPI4CONbits.ENHBUF = 0;
+    SPI4CONbits.MODE16 = 0;
+    SPI4CONbits.MODE32 = 0;  //8 bit transfers for now
+    SPI4CONbits.CKE = 1; 
+    SPI4CONbits.CKP = 0;
+    SPI4CONbits.SMP = 1;
+    SPI4CONbits.MSTEN = 1;
+    SPI4BRG = 1; //25 MHz
+    SPI4STATbits.SPIROV = 0;
+    SPI4CONbits.ON = 1;
+}
+
+bool transferFMUtoMCUch1(uint8_t *txBuff, int txBytes, uint8_t *rxBuff, int rxBytes) {
+    uint8_t c;
+    while (txBytes > 0) {
+        SPI4BUF = *txBuff;
+        while (SPI4STATbits.SPIRBF == 0);
+        c = SPI4BUF;
+        --txBytes;
+        ++txBuff;
+    }
+    delay_us(100);
+    while (rxBytes > 0) {
+        SPI4BUF = 0;
+        while (SPI4STATbits.SPIRBF == 0);
+        c = SPI4BUF;
+        *rxBuff = c;
+        --rxBytes;
+        ++rxBuff;
+    }
+    return true;
+}
+
+//MCU to FMU
 void __ISR(_SPI1_RX_VECTOR, IPL4SRS) spi1RxIsr(void) {
     char c;
     c = SPI1BUF;
