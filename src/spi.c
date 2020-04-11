@@ -23,6 +23,7 @@ void initMCUtoFMU(void) {
     SPI1CONbits.MODE32 = 0;  //8 bit transfers for now
     SPI1CONbits.CKE = 1;
     SPI1CONbits.CKP = 0;
+    SPI1CONbits.SMP = 1;
     SPI1CONbits.MSTEN = 0;
     IFS3bits.SPI1RXIF = 0;
     IPC27bits.SPI1RXIP = 4;
@@ -34,10 +35,9 @@ void initMCUtoFMU(void) {
 }
 
 void initFMUtoMCUch1(void) {
-    //SPI3
     TRISDbits.TRISD11 = 1;
     SPI4CON = 0;
-    char c = SPI3BUF;
+    char c = SPI4BUF;
     SPI4CONbits.ENHBUF = 0;
     SPI4CONbits.MODE16 = 0;
     SPI4CONbits.MODE32 = 0;  //8 bit transfers for now
@@ -67,6 +67,33 @@ bool transferFMUtoMCUch1(uint8_t *txBuff, int txBytes, uint8_t *rxBuff, int rxBy
         *rxBuff = c;
         --rxBytes;
         ++rxBuff;
+    }
+    return true;
+}
+
+void initFMUtoMCUch2(void) {
+    SPI3CON = 0;
+    char c = SPI3BUF;
+    SPI3CONbits.ENHBUF = 0;
+    SPI3CONbits.MODE16 = 0;
+    SPI3CONbits.MODE32 = 0;  //8 bit transfers for now
+    SPI3CONbits.CKE = 1; 
+    SPI3CONbits.CKP = 0;
+    SPI3CONbits.SMP = 1;
+    SPI3CONbits.MSTEN = 1;
+    SPI3BRG = 1; //25 MHz 
+    SPI3STATbits.SPIROV = 0;
+    SPI3CONbits.DISSDI;
+    SPI3CONbits.ON = 1;
+}
+
+bool transferFMUtoMCUch2(uint8_t *txBuff, int txBytes) {
+    uint8_t c;
+    while (txBytes > 0) {
+        while (SPI3STATbits.SPITBE == 0);
+        SPI3BUF = *txBuff;
+        --txBytes;
+        ++txBuff;
     }
     return true;
 }
